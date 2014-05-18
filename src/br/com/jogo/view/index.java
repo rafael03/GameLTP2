@@ -17,11 +17,11 @@ import javax.swing.JMenuItem;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 
+import br.com.jogo.controller.MenuAplicativo;
 import br.com.jogo.model.Conexao;
 
 public class index {
 
-	private static final Component MenuBar = null;
 	private static final JFrame Janela = new JFrame(
 			"Game Play - Cadastro do Jogador");
 	private static final JMenuBar menuBar = new JMenuBar();
@@ -37,8 +37,13 @@ public class index {
 
 	public static void CriaView() {
 		montaJanela();
-		menuSuperior();
+		chamaMenu();
 		Campos();
+		
+	}
+	public static void chamaMenu() {
+		MenuAplicativo novoMenu = new MenuAplicativo();
+		novoMenu.menuSuperior(menuBar);
 	}
 
 	private static void montaJanela() {
@@ -49,35 +54,7 @@ public class index {
 		Janela.setJMenuBar(menuBar);
 	}
 
-	public static void menuSuperior() {
 
-		JMenu menu = new JMenu("Inicio");
-		JMenu menuRanking = new JMenu("Ranking");
-		JMenu menuPerguntas = new JMenu("Perguntas");
-
-		// menu.setMnemonic(KeyEvent.VK_A);
-		menuBar.add(menu);
-		menuBar.add(menuRanking);
-		menuBar.add(menuPerguntas);
-
-		// Bloco de sub-menus inicio
-		JMenuItem Jogar = new JMenuItem("Jogar");
-		JMenuItem Sair = new JMenuItem("Sair");
-		menu.add(Jogar);
-		menu.add(Sair);
-
-		// Bloco de sub-menus Ranking
-		JMenuItem subMenuMelhores = new JMenuItem("Melhores Jogadores");
-		JMenuItem subMenuPiores = new JMenuItem("Piores Jogadores");
-		menuRanking.add(subMenuMelhores);
-		menuRanking.add(subMenuPiores);
-
-		// Bloco de sub-menus Perguntas
-		JMenuItem subMenuCriarPergunta = new JMenuItem("Cadastrar pergunta");
-		JMenuItem subMenuEditarPergunta = new JMenuItem("Editar pergunta");
-		menuPerguntas.add(subMenuCriarPergunta);
-		menuPerguntas.add(subMenuEditarPergunta);
-	}
 
 	public static void Campos() {
 		// Criando os label de texto
