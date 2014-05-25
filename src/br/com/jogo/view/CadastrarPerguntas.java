@@ -2,12 +2,16 @@ package br.com.jogo.view;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import br.com.jogo.model.bdPerguntas;
 
 public class CadastrarPerguntas extends JFrame {
 	public JButton btSalvar, btLimpar;
@@ -66,7 +70,47 @@ public class CadastrarPerguntas extends JFrame {
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 		
+		botoesCadastrarPerguntas();
 	}
+	
+	
+	private void botoesCadastrarPerguntas() {
+		// Efeitos ao clicar nos botões da tela de cadastro de perguntas
+		btSalvar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				//Chama a tela de cadastro de perguntas
+				bdPerguntas bancoPerguntas = new bdPerguntas();
+				
+				String strPergunta = fieldPergunta.getText();
+				String strRespostaCorreta = fieldRespostaCorreta.getText();
+				String strOpcao1 = fieldOpcao1.getText();
+				String strOpcao2 = fieldOpcao2.getText();
+				String strOpcao3 = fieldOpcao3.getText();
+				
+				
+				
+				bancoPerguntas.inserePerguntas(strPergunta,strRespostaCorreta,strOpcao1,strOpcao2,strOpcao3);
+				
+				
+			}
+		});
+		
+		btLimpar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				//Chama a tela de cadastro de perguntas
+				CadastrarPerguntas cadastroDePerguntas = new CadastrarPerguntas();
+				cadastroDePerguntas.main(null);
+				
+			}
+		});
+		
+	}
+
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		JFrame.setDefaultLookAndFeelDecorated(true);
