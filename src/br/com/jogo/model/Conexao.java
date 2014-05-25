@@ -3,16 +3,20 @@ package br.com.jogo.model;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import com.mysql.jdbc.Statement;
+import br.com.jogo.model.bdPerguntas;
 
 public class Conexao {
 
+	//Configurar o banco
 	protected static final String URL = "jdbc:mysql://localhost:3306/GameLTP2";
 
-/*	public static void main(String[] args) {
+	public static void main(String[] args) {
 
 		CriaTabelas();
+		bdPerguntas Perguntas = new bdPerguntas();
+		Perguntas.criaBancoPerguntas();
 
-	}*/
+	}
 
 	public static void CriaTabelas() {
 		try {

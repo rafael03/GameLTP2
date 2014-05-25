@@ -2,7 +2,10 @@ package br.com.jogo.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLClientInfoException;
 
+import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
 
 public class bdPerguntas extends Conexao {
@@ -42,7 +45,7 @@ public class bdPerguntas extends Conexao {
 			Connection con = (Connection) DriverManager.getConnection(URL,
 					"root", "");
 			Statement st = (Statement) con.createStatement();
-			
+
 			String valPergunta = strPergunta;
 			String valRespostaCorreta = strRespostaCorreta;
 			String valOpcao1 = strOpcao1;
@@ -59,16 +62,34 @@ public class bdPerguntas extends Conexao {
 
 			// Fecha a conexão com o Banco
 			con.close();
-			System.out.println("Dados Salvos (inserePerguntas) "+ strPergunta);
+			System.out.println("Dados Salvos (inserePerguntas) " + strPergunta);
 		} catch (Exception e) {
 			// Se der erro, retorna a mensagem com erro
-			System.out.println("Erro (inserePerguntas): " + e);
+			System.out.println("Erro (inserePerguntas()): " + e);
 		}
+	}
+
+	public static void mostraPeguntas() {
+		String consulta = "SELECT * FROM tabelaPergunta;";
+		try {
+			Connection con = (Connection) DriverManager.getConnection(URL, "root", "");
+			PreparedStatement stm = (PreparedStatement) con.prepareStatement(consulta);
+			ResultSet rs = stm.executeQuery();
+			
+			while (rs.next()){
+				System.out.println("ID: "+ rs.getString("id_pergunta") + "  Pergunta: " + rs.getString("texto_pergunta"));
+			}
+		} catch (SQLClientInfoException e) {
+			System.out.println("Erro (mostraPeguntas()): " + e);
+		} catch (Exception e) {
+			System.out.println("Erro (mostraPeguntas()): " + e);
+		}
+
 	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		mostraPeguntas();
 	}
 
 }
