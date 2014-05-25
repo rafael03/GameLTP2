@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -13,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import br.com.jogo.controller.GeradorDePerguntas;
 import br.com.jogo.view.Perguntas;
 
 public class Inicio extends JFrame {
@@ -64,9 +66,12 @@ public class Inicio extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				JOptionPane.showMessageDialog(null, "Jogar", "Janela",
-						JOptionPane.INFORMATION_MESSAGE);
+				GeradorDePerguntas perguntas = new GeradorDePerguntas();
+				ArrayList<Integer> lista_de_pergntas = perguntas.embaralhaListaDePerguntas();
+				
+				//Passa lista com indice das perguntas já embaralhadas
+				Jogar jogar = new Jogar(lista_de_pergntas, 3);
+				jogar.main(lista_de_pergntas, 3);
 			}
 		});
 
