@@ -1,5 +1,6 @@
 package br.com.jogo.view;
 
+//Sou Gay
 import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.MenuBar;
