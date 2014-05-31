@@ -98,7 +98,7 @@ public class Inicio extends JFrame {
 				perguntas.main(null);
 				
 			}
-		});;
+		});
 
 	}
 
