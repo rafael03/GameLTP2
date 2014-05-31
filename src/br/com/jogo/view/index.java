@@ -84,6 +84,17 @@ public class index {
 				
 			}
 		});
+		
+		buttonSair.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			// Fechar o aplicativo atraves do botao sair do menu
+
+			System.exit(0);
+
+			}
+			});
 
 		Janela.add(textUser);
 		Janela.add(fieldUser);

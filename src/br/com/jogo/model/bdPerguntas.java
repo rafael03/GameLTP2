@@ -18,7 +18,7 @@ public class bdPerguntas extends Conexao {
 	public static void criaBancoPerguntas() {
 		try {
 			Connection con = (Connection) DriverManager.getConnection(URL,
-					"root", "");
+					"root", "mysql");
 			Statement st = (Statement) con.createStatement();
 
 			// Insere os dados no Banco
@@ -48,7 +48,7 @@ public class bdPerguntas extends Conexao {
 		try {
 			// Abre conexão com o Banco
 			Connection con = (Connection) DriverManager.getConnection(URL,
-					"root", "");
+					"root", "mysql");
 			Statement st = (Statement) con.createStatement();
 
 			String valPergunta = strPergunta;
@@ -77,7 +77,7 @@ public class bdPerguntas extends Conexao {
 	public static <E> void mostraPeguntas() {
 		String consulta = "SELECT * FROM tabelaPergunta;";
 		try {
-			Connection con = (Connection) DriverManager.getConnection(URL, "root", "");
+			Connection con = (Connection) DriverManager.getConnection(URL, "root", "mysql");
 			PreparedStatement stm = (PreparedStatement) con.prepareStatement(consulta);
 			ResultSet rs = stm.executeQuery();
 			while (rs.next()){
@@ -95,7 +95,7 @@ public class bdPerguntas extends Conexao {
 		String consulta = "SELECT * FROM tabelaPergunta;";
 		try {
 			ArrayList<Integer> perguntas = new ArrayList<Integer>();
-			Connection con = (Connection) DriverManager.getConnection(URL, "root", "");
+			Connection con = (Connection) DriverManager.getConnection(URL, "root", "mysql");
 			PreparedStatement stm = (PreparedStatement) con.prepareStatement(consulta);
 			ResultSet rs = stm.executeQuery();
 			
@@ -118,7 +118,7 @@ public class bdPerguntas extends Conexao {
 		//Retorna pergunta de acordo com o indice informado
 		String consulta = "SELECT * FROM tabelaPergunta where id_pergunta = "+ integer +";";
 		try {
-			Connection con = (Connection) DriverManager.getConnection(URL, "root", "");
+			Connection con = (Connection) DriverManager.getConnection(URL, "root", "mysql");
 			PreparedStatement stm = (PreparedStatement) con.prepareStatement(consulta);
 			ResultSet rs = stm.executeQuery();
 			while (rs.next()){

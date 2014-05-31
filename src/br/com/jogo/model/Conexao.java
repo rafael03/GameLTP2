@@ -21,7 +21,7 @@ public class Conexao {
 	public static void CriaTabelas() {
 		try {
 			Connection con = (Connection) DriverManager.getConnection(URL,
-					"root", "");
+					"root", "mysql");
 			Statement st = (Statement) con.createStatement();
 
 			// Insere os dados no Banco
@@ -42,7 +42,7 @@ public class Conexao {
 		try {
 			// Abre conexão com o Banco
 			Connection con = (Connection) DriverManager.getConnection(URL,
-					"root", "");
+					"root", "mysql");
 			Statement st = (Statement) con.createStatement();
 
 			// Recebe os valores do metodo
