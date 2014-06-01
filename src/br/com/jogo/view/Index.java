@@ -1,27 +1,19 @@
 package br.com.jogo.view;
 
-//Teste
-import java.awt.Component;
 import java.awt.GridLayout;
-import java.awt.MenuBar;
-import java.awt.PopupMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JTextField;
-import javax.swing.KeyStroke;
 
 import br.com.jogo.controller.MenuAplicativo;
 import br.com.jogo.model.Conexao;
 
-public class index {
+public class Index {
 
 	private static final JFrame Janela = new JFrame(
 			"Game Play - Cadastro do Jogador");
@@ -43,8 +35,7 @@ public class index {
 		
 	}
 	public static void chamaMenu() {
-		MenuAplicativo novoMenu = new MenuAplicativo();
-		novoMenu.menuSuperior(menuBar);
+		MenuAplicativo.menuSuperior(menuBar);
 	}
 
 	private static void montaJanela() {
@@ -79,8 +70,7 @@ public class index {
 				String senhaDoJogador = fieldSenha.getText();
 				
 				System.out.println("Campos" + nomeDoJogador + senhaDoJogador);
-				Conexao conexao = new Conexao();
-				conexao.insereJogador(nomeDoJogador, senhaDoJogador);
+				Conexao.insereJogador(nomeDoJogador, senhaDoJogador);
 				
 			}
 		});

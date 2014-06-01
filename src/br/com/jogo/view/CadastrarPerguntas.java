@@ -12,12 +12,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import br.com.jogo.model.bdPerguntas;
+import br.com.jogo.model.Perguntas;
 
 public class CadastrarPerguntas extends JFrame {
+	
+	private static final long serialVersionUID = 1L;
+	
 	public JButton btSalvar, btLimpar;
-	public JTextField fieldPergunta, fieldRespostaCorreta, fieldOpcao1,
-			fieldOpcao2, fieldOpcao3;
+	public JTextField fieldPergunta, fieldRespostaCorreta, fieldOpcao1,	fieldOpcao2, fieldOpcao3;
 	public JLabel lbPergunta, lbRespostaCorreta, lbOpcao1, lbOpcao2, lbOpcao3;
 
 	public CadastrarPerguntas() {
@@ -80,7 +82,7 @@ public class CadastrarPerguntas extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// Chama a tela de cadastro de perguntas
-				bdPerguntas bancoPerguntas = new bdPerguntas();
+				//Perguntas bancoPerguntas = new Perguntas();
 
 				String strPergunta = fieldPergunta.getText();
 				String strRespostaCorreta = fieldRespostaCorreta.getText();
@@ -93,9 +95,7 @@ public class CadastrarPerguntas extends JFrame {
 					JOptionPane.showMessageDialog(null,
 							"Pergunta salva com sucesso!!!", null,
 							JOptionPane.INFORMATION_MESSAGE);
-					bancoPerguntas
-							.inserePerguntas(strPergunta, strRespostaCorreta,
-									strOpcao1, strOpcao2, strOpcao3);
+					Perguntas.inserePerguntas(strPergunta, strRespostaCorreta, strOpcao1, strOpcao2, strOpcao3);
 					limpaCampoCadastroPerguntas();
 				} else {
 					JOptionPane.showMessageDialog(null,

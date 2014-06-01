@@ -1,9 +1,10 @@
 package br.com.jogo.model;
 
+
 import java.sql.Connection;
 import java.sql.DriverManager;
+
 import com.mysql.jdbc.Statement;
-import br.com.jogo.model.bdPerguntas;
 
 public class Conexao {
 
@@ -12,16 +13,17 @@ public class Conexao {
 
 	public static void main(String[] args) {
 
-		CriaTabelas();
-		bdPerguntas Perguntas = new bdPerguntas();
+		criaTabelas();
+		//bdPerguntas Perguntas = new bdPerguntas();
 		Perguntas.criaBancoPerguntas();
+		
 
 	}
 
-	public static void CriaTabelas() {
+	public static void criaTabelas() {
 		try {
 			Connection con = (Connection) DriverManager.getConnection(URL,
-					"root", "mysql");
+					"root", "123");
 			Statement st = (Statement) con.createStatement();
 
 			// Insere os dados no Banco
@@ -42,7 +44,7 @@ public class Conexao {
 		try {
 			// Abre conexão com o Banco
 			Connection con = (Connection) DriverManager.getConnection(URL,
-					"root", "mysql");
+					"root", "123");
 			Statement st = (Statement) con.createStatement();
 
 			// Recebe os valores do metodo

@@ -1,24 +1,23 @@
 package br.com.jogo.model;
 
-import java.awt.List;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLClientInfoException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
 
-public class bdPerguntas extends Conexao {
+public class Perguntas extends Conexao {
+	
 
 	public static void criaBancoPerguntas() {
 		try {
 			Connection con = (Connection) DriverManager.getConnection(URL,
-					"root", "mysql");
+					"root", "123");
 			Statement st = (Statement) con.createStatement();
 
 			// Insere os dados no Banco
@@ -48,7 +47,7 @@ public class bdPerguntas extends Conexao {
 		try {
 			// Abre conexão com o Banco
 			Connection con = (Connection) DriverManager.getConnection(URL,
-					"root", "mysql");
+					"root", "123");
 			Statement st = (Statement) con.createStatement();
 
 			String valPergunta = strPergunta;
@@ -77,7 +76,7 @@ public class bdPerguntas extends Conexao {
 	public static <E> void mostraPeguntas() {
 		String consulta = "SELECT * FROM tabelaPergunta;";
 		try {
-			Connection con = (Connection) DriverManager.getConnection(URL, "root", "mysql");
+			Connection con = (Connection) DriverManager.getConnection(URL, "root", "123");
 			PreparedStatement stm = (PreparedStatement) con.prepareStatement(consulta);
 			ResultSet rs = stm.executeQuery();
 			while (rs.next()){
@@ -95,7 +94,7 @@ public class bdPerguntas extends Conexao {
 		String consulta = "SELECT * FROM tabelaPergunta;";
 		try {
 			ArrayList<Integer> perguntas = new ArrayList<Integer>();
-			Connection con = (Connection) DriverManager.getConnection(URL, "root", "mysql");
+			Connection con = (Connection) DriverManager.getConnection(URL, "root", "123");
 			PreparedStatement stm = (PreparedStatement) con.prepareStatement(consulta);
 			ResultSet rs = stm.executeQuery();
 			
@@ -118,7 +117,7 @@ public class bdPerguntas extends Conexao {
 		//Retorna pergunta de acordo com o indice informado
 		String consulta = "SELECT * FROM tabelaPergunta where id_pergunta = "+ integer +";";
 		try {
-			Connection con = (Connection) DriverManager.getConnection(URL, "root", "mysql");
+			Connection con = (Connection) DriverManager.getConnection(URL, "root", "123");
 			PreparedStatement stm = (PreparedStatement) con.prepareStatement(consulta);
 			ResultSet rs = stm.executeQuery();
 			while (rs.next()){

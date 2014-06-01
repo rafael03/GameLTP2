@@ -7,8 +7,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import br.com.jogo.view.Perguntas;
-
 public class MenuAplicativo {
 
 //	private static final JMenu menuBar = null;
@@ -70,7 +68,7 @@ public class MenuAplicativo {
 				// TODO Auto-generated method stub
 				
 				//Chama outra tela para Criar e cadastrar perguntas
-			Perguntas pg = new Perguntas();	
+				//Perguntas pg = new Perguntas();	
 				
 			}
 		});

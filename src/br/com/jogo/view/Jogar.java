@@ -10,16 +10,14 @@ import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JTextField;
-import br.com.jogo.controller.GeradorDePerguntas;
 
-import br.com.jogo.controller.GeradorDePerguntas;
-import br.com.jogo.model.bdPerguntas;
+import br.com.jogo.model.Perguntas;
 
-public class Jogar extends JFrame{
+public class Jogar extends JFrame {
+	
+	private static final long serialVersionUID = 1L;
 	ArrayList<Integer> perguntas_;
 	int intVidas =3;
 	public JButton btResponder;
@@ -34,8 +32,7 @@ public class Jogar extends JFrame{
 	
 	public Jogar(ArrayList<Integer> lista_de_pergntas, int intVidas2) {
 		perguntas_ = lista_de_pergntas;
-		bdPerguntas recebe_pergunta = new bdPerguntas();
-		Map<String, String> pergunta = recebe_pergunta.getPergunta(perguntas_.get(0));
+		Map<String, String> pergunta = Perguntas.getPergunta(perguntas_.get(0));
 		
 		lbVidas = new JLabel();
 		lbId = new JLabel();

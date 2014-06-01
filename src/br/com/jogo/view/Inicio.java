@@ -2,7 +2,6 @@ package br.com.jogo.view;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -12,12 +11,12 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 
 import br.com.jogo.controller.GeradorDePerguntas;
-import br.com.jogo.view.Perguntas;
 
 public class Inicio extends JFrame {
+	
+	private static final long serialVersionUID = 1L;
 	public JButton btJogar, btRanking, btCadastrarPergunta;
 	public ImageIcon imgJogar, imgRanking, imgCadastrarPergunta;
 
@@ -66,8 +65,7 @@ public class Inicio extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				GeradorDePerguntas perguntas = new GeradorDePerguntas();
-				ArrayList<Integer> lista_de_pergntas = perguntas.embaralhaListaDePerguntas();
+				ArrayList<Integer> lista_de_pergntas = GeradorDePerguntas.embaralhaListaDePerguntas();
 				
 				//Passa lista com indice das perguntas já embaralhadas
 				Jogar jogar = new Jogar(lista_de_pergntas, 3);
@@ -94,8 +92,7 @@ public class Inicio extends JFrame {
 				// TODO Auto-generated method stub
 				
 				//Chama outra tela
-				Perguntas perguntas = new Perguntas();
-				perguntas.main(null);
+				Perguntas.main(null);
 				
 			}
 		});

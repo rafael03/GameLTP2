@@ -12,6 +12,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class Perguntas extends JFrame {
+	
+	private static final long serialVersionUID = 1L;
 	public JButton btCadastrar, btEditar, btDeletar, btBuscar;
 	public ImageIcon imgCadastrar, imgBuscar ,imgEditar;
 
@@ -53,8 +55,7 @@ public class Perguntas extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				//Chama a tela de cadastro de perguntas
-				CadastrarPerguntas cadastroDePerguntas = new CadastrarPerguntas();
-				cadastroDePerguntas.main(null);
+				CadastrarPerguntas.main(null);
 				
 			}
 		});

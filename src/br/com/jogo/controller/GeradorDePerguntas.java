@@ -1,9 +1,8 @@
 package br.com.jogo.controller;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
-import br.com.jogo.model.bdPerguntas;
+import br.com.jogo.model.Perguntas;
 public class GeradorDePerguntas {
 
 	public static void main(String[] args) {
@@ -12,7 +11,6 @@ public class GeradorDePerguntas {
 	}
 	
 	public static ArrayList<Integer> embaralhaListaDePerguntas() {
-		bdPerguntas Perguntas = new bdPerguntas();
 		Perguntas.retornaIndiceDePerguntas();
 		
 		ArrayList<Integer> indice_perguntas = Perguntas.retornaIndiceDePerguntas();
