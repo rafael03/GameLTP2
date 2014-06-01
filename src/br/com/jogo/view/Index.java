@@ -11,7 +11,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JTextField;
 
 import br.com.jogo.controller.MenuAplicativo;
-import br.com.jogo.model.Conexao;
+import br.com.jogo.model.Jogador;
 
 public class Index {
 
@@ -70,7 +70,7 @@ public class Index {
 				String senhaDoJogador = fieldSenha.getText();
 				
 				System.out.println("Campos" + nomeDoJogador + senhaDoJogador);
-				Conexao.insereJogador(nomeDoJogador, senhaDoJogador);
+				Jogador.insereJogador(nomeDoJogador, senhaDoJogador);
 				
 			}
 		});

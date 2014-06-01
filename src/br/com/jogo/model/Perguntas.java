@@ -1,7 +1,6 @@
 package br.com.jogo.model;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLClientInfoException;
 import java.util.ArrayList;
@@ -16,8 +15,7 @@ public class Perguntas extends Conexao {
 
 	public static void criaBancoPerguntas() {
 		try {
-			Connection con = (Connection) DriverManager.getConnection(URL,
-					"root", "123");
+			Connection con = getConnection();
 			Statement st = (Statement) con.createStatement();
 
 			// Insere os dados no Banco
@@ -46,8 +44,7 @@ public class Perguntas extends Conexao {
 			String strOpcao3) {
 		try {
 			// Abre conexão com o Banco
-			Connection con = (Connection) DriverManager.getConnection(URL,
-					"root", "123");
+			Connection con = getConnection();
 			Statement st = (Statement) con.createStatement();
 
 			String valPergunta = strPergunta;
@@ -76,7 +73,7 @@ public class Perguntas extends Conexao {
 	public static <E> void mostraPeguntas() {
 		String consulta = "SELECT * FROM tabelaPergunta;";
 		try {
-			Connection con = (Connection) DriverManager.getConnection(URL, "root", "123");
+			Connection con = getConnection();
 			PreparedStatement stm = (PreparedStatement) con.prepareStatement(consulta);
 			ResultSet rs = stm.executeQuery();
 			while (rs.next()){
@@ -94,7 +91,7 @@ public class Perguntas extends Conexao {
 		String consulta = "SELECT * FROM tabelaPergunta;";
 		try {
 			ArrayList<Integer> perguntas = new ArrayList<Integer>();
-			Connection con = (Connection) DriverManager.getConnection(URL, "root", "123");
+			Connection con = Conexao.getConnection();
 			PreparedStatement stm = (PreparedStatement) con.prepareStatement(consulta);
 			ResultSet rs = stm.executeQuery();
 			
@@ -117,7 +114,7 @@ public class Perguntas extends Conexao {
 		//Retorna pergunta de acordo com o indice informado
 		String consulta = "SELECT * FROM tabelaPergunta where id_pergunta = "+ integer +";";
 		try {
-			Connection con = (Connection) DriverManager.getConnection(URL, "root", "123");
+			Connection con = Conexao.getConnection();
 			PreparedStatement stm = (PreparedStatement) con.prepareStatement(consulta);
 			ResultSet rs = stm.executeQuery();
 			while (rs.next()){

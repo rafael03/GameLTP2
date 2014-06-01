@@ -9,7 +9,9 @@ import com.mysql.jdbc.Statement;
 public class Conexao {
 
 	//Configurar o banco
-	protected static final String URL = "jdbc:mysql://localhost:3306/GameLTP2";
+	protected static final String URL = "jdbc:mysql://localhost:3306/gameLTPII";
+	private static final String userNameDb = "root";
+	private static final String userPasswDb = "123";
 
 	public static void main(String[] args) {
 
@@ -17,13 +19,24 @@ public class Conexao {
 		//bdPerguntas Perguntas = new bdPerguntas();
 		Perguntas.criaBancoPerguntas();
 		
-
+	}
+	
+	
+	public static Connection getConnection () {
+		
+		try {
+			Connection con = (Connection) DriverManager.getConnection(URL, userNameDb, userPasswDb);
+			return con;			
+		} catch (Exception e) {
+			System.out.println("Erro (CriaTabelas)" + e);
+		}
+		return null;
+		
 	}
 
 	public static void criaTabelas() {
 		try {
-			Connection con = (Connection) DriverManager.getConnection(URL,
-					"root", "123");
+			Connection con = getConnection();
 			Statement st = (Statement) con.createStatement();
 
 			// Insere os dados no Banco
@@ -40,28 +53,6 @@ public class Conexao {
 		}
 	}
 
-	public static void insereJogador(String nome, String senha) {
-		try {
-			// Abre conexão com o Banco
-			Connection con = (Connection) DriverManager.getConnection(URL,
-					"root", "123");
-			Statement st = (Statement) con.createStatement();
 
-			// Recebe os valores do metodo
-			String nomeUser = nome;
-			String senhaUser = senha;
-
-			// Insere os dados no Banco
-			st.executeUpdate("INSERT INTO jogador(nome, senha) VALUES ('"
-					+ nomeUser + "','" + senhaUser + "');");
-
-			// Fecha a conexão com o Banco
-			con.close();
-
-		} catch (Exception e) {
-			// Se der erro, retorna a mensagem com erro
-			System.out.println("Erro (insereJogador): " + e);
-		}
-	}
 
 }
