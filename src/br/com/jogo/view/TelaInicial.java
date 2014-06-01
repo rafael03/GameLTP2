@@ -12,15 +12,15 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import br.com.jogo.controller.GeradorDePerguntas;
+import br.com.jogo.controller.Embaralhador;
 
-public class Inicio extends JFrame {
+public class TelaInicial extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 	public JButton btJogar, btRanking, btCadastrarPergunta;
 	public ImageIcon imgJogar, imgRanking, imgCadastrarPergunta;
 
-	public Inicio() {
+	public TelaInicial() {
 		//Cria botões
 		btJogar = new JButton("    Jogar");
 		btRanking = new JButton("  Ranking");
@@ -46,7 +46,6 @@ public class Inicio extends JFrame {
 		// painel do JFrame
 		this.setLayout(new BorderLayout());
 		this.getContentPane().add(panButtons, BorderLayout.CENTER);
-
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle("Game Play");
 		this.setSize(600, 300);
@@ -54,37 +53,39 @@ public class Inicio extends JFrame {
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 
-		chamaClickOnButton();
+		defineAcoesDosBotoes();
 	}
 
-	private void chamaClickOnButton() {
-		// Funcões realizadas ao se clicar em algum botão
+	/**
+	 * Método que define as ações dos botões
+	 */
+	private void defineAcoesDosBotoes() {
+		
 
-		// Efeito ao clicar no botão btJogar
+		// Açao ao clicar no botão btJogar
 		btJogar.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				ArrayList<Integer> lista_de_pergntas = GeradorDePerguntas.embaralhaListaDePerguntas();
+				ArrayList<Integer> indicePerguntas = Embaralhador.embaralhaListaDePerguntas();
 				
 				//Passa lista com indice das perguntas já embaralhadas
-				Jogar jogar = new Jogar(lista_de_pergntas, 3);
-				jogar.main(lista_de_pergntas, 3);
+				new Jogar(indicePerguntas, 3);
+				//jogar.main(lista_de_pergntas, 3);
 			}
 		});
 
-		// Efeito ao clicar no botão btRanking
+		// Ação ao clicar no botão btRanking
 		btRanking.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				JOptionPane.showMessageDialog(null, "Ranking", "Janela",
-						JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Ranking", "Janela", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 
-		// Efeito ao clicar no botão btCadastrarPergunta
+		// Ação ao clicar no botão btCadastrarPergunta
 		btCadastrarPergunta.addActionListener(new ActionListener() {
 
 			@Override
@@ -92,7 +93,7 @@ public class Inicio extends JFrame {
 				// TODO Auto-generated method stub
 				
 				//Chama outra tela
-				Perguntas.main(null);
+				TelaGerenciaPerguntas.main(null);
 				
 			}
 		});
@@ -106,7 +107,7 @@ public class Inicio extends JFrame {
 		// TODO Auto-generated method stub
 		// Linha responsavel por personalizar a janela
 		JFrame.setDefaultLookAndFeelDecorated(true);
-		new Inicio();
+		new TelaInicial();
 
 	}
 

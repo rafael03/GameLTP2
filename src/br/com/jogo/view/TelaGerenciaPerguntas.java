@@ -11,13 +11,13 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class Perguntas extends JFrame {
+public class TelaGerenciaPerguntas extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 	public JButton btCadastrar, btEditar, btDeletar, btBuscar;
 	public ImageIcon imgCadastrar, imgBuscar ,imgEditar;
 
-	public Perguntas() {
+	public TelaGerenciaPerguntas() {
 		btCadastrar = new JButton("Cadastrar Perguntas");
 		btEditar =  new JButton("Editar Perguntas");
 		btBuscar = new JButton("Pesquisar Por Perguntas");
@@ -33,8 +33,7 @@ public class Perguntas extends JFrame {
 		JPanel panButtons = new JPanel(new GridLayout(3, 1));
 		panButtons.add(btCadastrar);
 		panButtons.add(btEditar);
-		panButtons.add(btBuscar);
-		
+		panButtons.add(btBuscar);		
 		
 
 		// painel do JFrame
@@ -55,7 +54,7 @@ public class Perguntas extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				//Chama a tela de cadastro de perguntas
-				CadastrarPerguntas.main(null);
+				TelaCadastroPerguntas.main(null);
 				
 			}
 		});
@@ -66,8 +65,7 @@ public class Perguntas extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				JOptionPane.showMessageDialog(null, "Jogar", "Janela",
-						JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Jogar", "Janela", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		
@@ -76,8 +74,7 @@ public class Perguntas extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				JOptionPane.showMessageDialog(null, "Editar", "Janela",
-						JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Editar", "Janela",	JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		
@@ -86,7 +83,7 @@ public class Perguntas extends JFrame {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		JFrame.setDefaultLookAndFeelDecorated(true);
-		new Perguntas();
+		new TelaGerenciaPerguntas();
 	}
 
 }

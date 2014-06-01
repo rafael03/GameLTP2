@@ -15,8 +15,7 @@ import br.com.jogo.model.Jogador;
 
 public class Index {
 
-	private static final JFrame Janela = new JFrame(
-			"Game Play - Cadastro do Jogador");
+	private static final JFrame Janela = new JFrame("Game Play - Cadastro do Jogador");
 	private static final JMenuBar menuBar = new JMenuBar();
 
 	/**

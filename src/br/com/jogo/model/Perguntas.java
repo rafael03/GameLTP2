@@ -8,62 +8,31 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.mysql.jdbc.PreparedStatement;
-import com.mysql.jdbc.Statement;
 
 public class Perguntas extends Conexao {
 	
-
-	public static void criaBancoPerguntas() {
-		try {
-			Connection con = getConnection();
-			Statement st = (Statement) con.createStatement();
-
-			// Insere os dados no Banco
-			String sqlCreate = "CREATE TABLE IF NOT EXISTS tabelaPergunta"
-					+ "(id_pergunta int(20) NOT NULL AUTO_INCREMENT,"
-					+ " texto_pergunta varchar(1000) NOT NULL,"
-					+ " resposta_certa varchar(500) NOT NULL,"
-					+ " resposta_errada1 varchar(500) NOT NULL,"
-					+ " resposta_errada2 varchar(500) NOT NULL,"
-					+ " resposta_errada3 varchar(500) NOT NULL,"
-					+ " PRIMARY KEY (id_pergunta))ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;";
-
-			// executa o comando dentro da variavel sqlCreate
-			st.execute(sqlCreate);
-
-			// Fecha a conexão com o Banco
-			con.close();
-		} catch (Exception e) {
-			System.out.println("Erro (criaBancoPerguntas)" + e);
-		}
-	}
-
-	// TODO
-	public static void inserePerguntas(String strPergunta,
-			String strRespostaCorreta, String strOpcao1, String strOpcao2,
-			String strOpcao3) {
+	public static void inserePerguntas(String textoPergunta, String respostaCerta, String opcao1, String opcao2, String opcao3) {
 		try {
 			// Abre conexão com o Banco
 			Connection con = getConnection();
-			Statement st = (Statement) con.createStatement();
-
-			String valPergunta = strPergunta;
-			String valRespostaCorreta = strRespostaCorreta;
-			String valOpcao1 = strOpcao1;
-			String valOpcao2 = strOpcao2;
-			String valOpcao3 = strOpcao3;
+			
+			//Monta o a query com passagem de parametro dinâmico
+			PreparedStatement st = (PreparedStatement) con.prepareStatement("insert into pergunta(texto_pergunta, resposta_certa, resposta_errada1, resposta_errada2, resposta_errada3) VALUES (?,?,?,?,?)");
 
 			// Insere os dados no Banco
-			st.executeUpdate("INSERT INTO tabelaPergunta(texto_pergunta, resposta_certa,resposta_errada1,resposta_errada2,resposta_errada3) VALUES ('"
-					+ valPergunta
-					+ "','"
-					+ valRespostaCorreta
-					+ "','"
-					+ valOpcao1 + "','" + valOpcao2 + "','" + valOpcao3 + "');");
+			st.setString(1, textoPergunta);
+			st.setString(2, respostaCerta);
+			st.setString(3, opcao1);
+			st.setString(4, opcao2);
+			st.setString(5, opcao3);
+			
+			st.executeUpdate();
 
 			// Fecha a conexão com o Banco
 			con.close();
-			System.out.println("Dados Salvos (inserePerguntas) " + strPergunta);
+			
+			System.out.println("Dados Salvos (inserePerguntas) " + textoPergunta);
+			
 		} catch (Exception e) {
 			// Se der erro, retorna a mensagem com erro
 			System.out.println("Erro (inserePerguntas()): " + e);
@@ -71,7 +40,7 @@ public class Perguntas extends Conexao {
 	}
 
 	public static <E> void mostraPeguntas() {
-		String consulta = "SELECT * FROM tabelaPergunta;";
+		String consulta = "select * from pergunta";
 		try {
 			Connection con = getConnection();
 			PreparedStatement stm = (PreparedStatement) con.prepareStatement(consulta);
@@ -88,7 +57,7 @@ public class Perguntas extends Conexao {
 	}
 	
 	public static ArrayList<Integer> retornaIndiceDePerguntas() {
-		String consulta = "SELECT * FROM tabelaPergunta;";
+		String consulta = "select id_pergunta from pergunta ";
 		try {
 			ArrayList<Integer> perguntas = new ArrayList<Integer>();
 			Connection con = Conexao.getConnection();
@@ -112,7 +81,7 @@ public class Perguntas extends Conexao {
 	
 	public static Map<String, String> getPergunta(Integer integer) {
 		//Retorna pergunta de acordo com o indice informado
-		String consulta = "SELECT * FROM tabelaPergunta where id_pergunta = "+ integer +";";
+		String consulta = "select * from pergunta where id_pergunta = "+ integer;
 		try {
 			Connection con = Conexao.getConnection();
 			PreparedStatement stm = (PreparedStatement) con.prepareStatement(consulta);

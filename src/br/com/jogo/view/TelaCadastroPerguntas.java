@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 
 import br.com.jogo.model.Perguntas;
 
-public class CadastrarPerguntas extends JFrame {
+public class TelaCadastroPerguntas extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -22,7 +22,7 @@ public class CadastrarPerguntas extends JFrame {
 	public JTextField fieldPergunta, fieldRespostaCorreta, fieldOpcao1,	fieldOpcao2, fieldOpcao3;
 	public JLabel lbPergunta, lbRespostaCorreta, lbOpcao1, lbOpcao2, lbOpcao3;
 
-	public CadastrarPerguntas() {
+	public TelaCadastroPerguntas() {
 
 		lbPergunta = new JLabel("Digite a pergunta: ");
 		lbRespostaCorreta = new JLabel("Digite a Resposta Correta");
@@ -72,35 +72,30 @@ public class CadastrarPerguntas extends JFrame {
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 
-		botoesCadastrarPerguntas();
+		botoesTelaCadastrarPerguntas();
 	}
 
-	private void botoesCadastrarPerguntas() {
+	private void botoesTelaCadastrarPerguntas() {
+		
 		// Efeitos ao clicar nos botões da tela de cadastro de perguntas
 		btSalvar.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent actionEvent) {
+				
 				// Chama a tela de cadastro de perguntas
-				//Perguntas bancoPerguntas = new Perguntas();
-
 				String strPergunta = fieldPergunta.getText();
 				String strRespostaCorreta = fieldRespostaCorreta.getText();
 				String strOpcao1 = fieldOpcao1.getText();
 				String strOpcao2 = fieldOpcao2.getText();
 				String strOpcao3 = fieldOpcao3.getText();
 
-				if (!(strPergunta.equals(""))
-						|| !(strRespostaCorreta.equals(""))) {
-					JOptionPane.showMessageDialog(null,
-							"Pergunta salva com sucesso!!!", null,
-							JOptionPane.INFORMATION_MESSAGE);
+				if (!(strPergunta.equals("")) || !(strRespostaCorreta.equals(""))) {
 					Perguntas.inserePerguntas(strPergunta, strRespostaCorreta, strOpcao1, strOpcao2, strOpcao3);
+					JOptionPane.showMessageDialog(null, "Pergunta salva com sucesso!!!", null, JOptionPane.INFORMATION_MESSAGE);
 					limpaCampoCadastroPerguntas();
 				} else {
-					JOptionPane.showMessageDialog(null,
-							"Preencha os campos corretamente!!!", null,
-							JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Preencha os campos corretamente!!!", null, JOptionPane.ERROR_MESSAGE);
 				}
 
 			}
@@ -131,7 +126,7 @@ public class CadastrarPerguntas extends JFrame {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		JFrame.setDefaultLookAndFeelDecorated(true);
-		new CadastrarPerguntas();
+		new TelaCadastroPerguntas();
 	}
 
 }

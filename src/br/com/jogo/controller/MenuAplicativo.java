@@ -9,16 +9,6 @@ import javax.swing.JMenuItem;
 
 public class MenuAplicativo {
 
-//	private static final JMenu menuBar = null;
-
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-	
 	public static void menuSuperior(JMenuBar menuBar) {
 
 		JMenu menu = new JMenu("Inicio");
