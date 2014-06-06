@@ -12,6 +12,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -30,6 +31,7 @@ public class BuscarPergunta extends JFrame {
 	public JButton btEditar, btDeletar, btBuscar;
 	public JTextField fieldBuscar;
 	public JLabel lbBuscar;
+	public JTable tab;
 	Vector cabecalho = new Vector(); // declara cabecalho como um objeto
 	// do tipo vetor
 	Vector linhas = new Vector(); // · armazena todas as linhas que vão
@@ -46,35 +48,30 @@ public class BuscarPergunta extends JFrame {
 		panButtons.add(fieldBuscar);
 		panButtons.add(btBuscar);
 
-		ResultSet res = Perguntas.buscaTabela();
-		ResultSetMetaData rsmd = res.getMetaData();
-		for (int i = 1; i <= rsmd.getColumnCount(); ++i)
-			cabecalho.addElement(rsmd.getColumnName(i));
-		// busca dados das linhas
+		// Inicio do codigo para montar a tabela
+		ResultSet valoresDoBanco = Perguntas.buscaTabela();
+		ResultSetMetaData tabelaDoBanco = valoresDoBanco.getMetaData();
+
+		for (int i = 1; i <= tabelaDoBanco.getColumnCount(); ++i)
+			cabecalho.addElement(tabelaDoBanco.getColumnName(i));
+
 		do {
-			linhas.addElement(proximaLinha(res, rsmd));
-		} while (res.next());
+			linhas.addElement(proximaLinha(valoresDoBanco, tabelaDoBanco));
+		} while (valoresDoBanco.next());
 		// Mostra a tabela com cabeçalhos e registros
-		final JTable tab = new JTable(linhas, cabecalho);
+		tab = new JTable(linhas, cabecalho);
 		JScrollPane scroller = new JScrollPane(tab);
 		getContentPane().add(scroller, BorderLayout.CENTER);
 		validate();
-		// st.close();
 
-		tab.getSelectionModel().addListSelectionListener(
-				new ListSelectionListener() {
-					public void valueChanged(ListSelectionEvent event) {
-						// do some actions here, for example
-						// print first column value from selected row
-						System.out.println(tab.getValueAt(tab.getSelectedRow(),
-								0).toString());
-					}
-				});
-		// JTable jtable = new JTable(dados, colunas);
+		// Adiciona a Tabela no layout
 		JPanel panTable = new JPanel(new GridLayout(1, 1));
 		panTable.add(tab);
 
-		// painel do JFrame
+		// Chama Metodo responsavel pelo efeito ao clicar em uma <TR> (Linha)
+		efeitoAoClicarNaLinha();
+
+		// Configurações do Layout
 		this.setLayout(new BorderLayout());
 		this.getContentPane().add(panButtons, BorderLayout.NORTH);
 		this.getContentPane().add(panTable, BorderLayout.CENTER);
@@ -84,16 +81,37 @@ public class BuscarPergunta extends JFrame {
 		this.setResizable(true);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
-		// botoesNaTelaPergunta();
 
 	}
 
+	// Metodo responsavel pelo clique na linha da tabela
+	private void efeitoAoClicarNaLinha() {
+		// TODO Auto-generated method stub
+		tab.getSelectionModel().addListSelectionListener(
+				new ListSelectionListener() {
+					public void valueChanged(ListSelectionEvent event) {
+						String id_ = tab.getValueAt(tab.getSelectedRow(),0).toString();
+						String pergunta_ = tab.getValueAt(tab.getSelectedRow(),1).toString();
+						String respostaCerta_ = tab.getValueAt(tab.getSelectedRow(),2).toString();
+						String opcao1_ = tab.getValueAt(tab.getSelectedRow(),3).toString();
+						String opcao2_ = tab.getValueAt(tab.getSelectedRow(),4).toString();
+						String opcao3_ = tab.getValueAt(tab.getSelectedRow(),5).toString();
+						
+						updateOrDeletePergunta(id_, pergunta_, respostaCerta_, opcao1_, opcao2_, opcao3_);
+						System.out
+								.println("Linha Selecionada (efeitoAoClicarNaLinha)>>"
+										+ tab.getValueAt(tab.getSelectedRow(),
+												0).toString());
+					}
+				});
+	}
+
 	private Vector proximaLinha(ResultSet rs, ResultSetMetaData rsmd) {
+		// Metodo que cria as <TR> da tabela inserindo os seus devidos valores
 		Vector LinhaAtual = new Vector();
 
 		try {
 			for (int i = 1; i <= rsmd.getColumnCount(); ++i) {
-				System.out.println(rsmd.getColumnType(i));
 				switch (rsmd.getColumnType(i)) {
 				case Types.INTEGER:
 					LinhaAtual.addElement(rs.getInt(i));
@@ -108,14 +126,31 @@ public class BuscarPergunta extends JFrame {
 			}
 
 		} catch (SQLException e) {
+			System.out.println("Erro (proximaLinha): " + e);
 		}
 		return LinhaAtual;
 
 	}
 
-	public static void main(String[] args) throws SQLException {
+	private void updateOrDeletePergunta(String id_, String pergunta_, String respostaCerta_, String opcao1_, String opcao2_, String opcao3_) {
 		// TODO Auto-generated method stub
-		System.out.println("Tela de perguntas");
+		Object[] options = { "Editar", "Deletar" };
+		int n = JOptionPane.showOptionDialog(null, "Escolha a opção desejada:", "Gerenciador de Perguntas",
+				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.DEFAULT_OPTION,
+				null, options, options[1]);
+		JFrame metric = new JFrame("Editar");
+		JFrame imperial = new JFrame("Deletar");
+		if (n == 0) {
+//			metric.setVisible(true);
+			EdicaoDePerguntas.main(id_, pergunta_, respostaCerta_, opcao1_, opcao2_, opcao3_);
+		} else if (n == 1) {
+//			imperial.setVisible(true);
+		} else {
+			System.out.println("no option choosen");
+		}
+	}
+
+	public static void main(String[] args) throws SQLException {
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		new BuscarPergunta();
 	}
