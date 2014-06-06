@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -14,25 +15,21 @@ import javax.swing.JPanel;
 public class TelaGerenciaPerguntas extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
-	public JButton btCadastrar, btEditar, btDeletar, btBuscar;
+	public JButton btCadastrar, btDeletar, btBuscar;
 	public ImageIcon imgCadastrar, imgBuscar ,imgEditar;
 
 	public TelaGerenciaPerguntas() {
 		btCadastrar = new JButton("Cadastrar Perguntas");
-		btEditar =  new JButton("Editar Perguntas");
 		btBuscar = new JButton("Pesquisar Por Perguntas");
 		
 		imgCadastrar = new ImageIcon("img/inserir.png");
-		imgEditar = new ImageIcon("img/editar.png");
 		imgBuscar = new ImageIcon("img/buscar.png");
 		
 		btCadastrar.setIcon(imgCadastrar);
-		btEditar.setIcon(imgEditar);
 		btBuscar.setIcon(imgBuscar);
 		
-		JPanel panButtons = new JPanel(new GridLayout(3, 1));
+		JPanel panButtons = new JPanel(new GridLayout(2, 1));
 		panButtons.add(btCadastrar);
-		panButtons.add(btEditar);
 		panButtons.add(btBuscar);		
 		
 
@@ -65,18 +62,17 @@ public class TelaGerenciaPerguntas extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				JOptionPane.showMessageDialog(null, "Jogar", "Janela", JOptionPane.INFORMATION_MESSAGE);
+//				JOptionPane.showMessageDialog(null, "Jogar", "Janela", JOptionPane.INFORMATION_MESSAGE);
+				try {
+					BuscarPergunta.main(null);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 		
-			btEditar.addActionListener(new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				JOptionPane.showMessageDialog(null, "Editar", "Janela",	JOptionPane.INFORMATION_MESSAGE);
-			}
-		});
 		
 	}
 
