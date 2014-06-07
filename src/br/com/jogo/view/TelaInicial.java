@@ -60,7 +60,6 @@ public class TelaInicial extends JFrame {
 	 * Método que define as ações dos botões
 	 */
 	private void defineAcoesDosBotoes() {
-		
 
 		// Açao ao clicar no botão btJogar
 		btJogar.addActionListener(new ActionListener() {
@@ -71,6 +70,7 @@ public class TelaInicial extends JFrame {
 				
 				//Passa lista com indice das perguntas já embaralhadas
 				new Jogar(indicePerguntas, 3);
+				dispose();
 				//jogar.main(lista_de_pergntas, 3);
 			}
 		});

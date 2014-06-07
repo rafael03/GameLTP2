@@ -52,6 +52,7 @@ public class TelaGerenciaPerguntas extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				//Chama a tela de cadastro de perguntas
 				TelaCadastroPerguntas.main(null);
+				dispose();
 				
 			}
 		});

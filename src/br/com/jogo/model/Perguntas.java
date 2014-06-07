@@ -116,7 +116,6 @@ public class Perguntas extends Conexao {
 				pergunta.put("opcao1", rs.getString("resposta_errada1"));
 				pergunta.put("opcao2", rs.getString("resposta_errada2"));
 				pergunta.put("opcao3", rs.getString("resposta_errada3"));
-				System.out.println("TESTE" + pergunta);
 				return pergunta;
 			}
 		} catch (SQLClientInfoException e) {
@@ -138,19 +137,81 @@ public class Perguntas extends Conexao {
 			st = conexao.createStatement();
 			res = st.executeQuery("SELECT * FROM pergunta");
 			res.next();
-			
+
 			// busca os cabeçalhos
 			return res;
 		} catch (SQLException sqlex) {
-			
+			System.out.println("Erro (buscaTabela(): " + sqlex);
 		}
 		return null;
-		
-		}
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
 	}
+	
+	public static ResultSet buscaPorId(String strIdParaBusca) {
+		Statement st;
+		ResultSet res;
+
+		try {
+			conexao = Conexao.getConnection();
+			st = conexao.createStatement();
+			res = st.executeQuery("SELECT * FROM pergunta WHERE id_pergunta ='"+ strIdParaBusca +"';");
+			res.next();
+
+			System.out.println(res);
+			return res;
+		} catch (SQLException sqlex) {
+			System.out.println("Erro (buscaTabela(): " + sqlex);
+		}
+		return null;
+	}
+	
+	public static Boolean updatePergunta(Integer intId, String strPergunta, String strRespostaCerta, String strOpcao1, String strOpcao2, String strOpcao3) {
+		System.out.println(intId + strPergunta + strRespostaCerta);
+		Statement st;
+		try {
+			conexao = Conexao.getConnection();
+			st = conexao.createStatement();
+			
+			String sql = "UPDATE pergunta SET"
+					+ " texto_pergunta='"+ strPergunta + "',"
+					+ " resposta_certa='"+ strRespostaCerta + "',"
+					+ " resposta_errada1='"+ strOpcao1 + "',"
+					+ " resposta_errada2='"+ strOpcao2 + "',"
+					+ " resposta_errada3='"+ strOpcao3 +"'"
+					+ " WHERE id_pergunta='"+ intId + "'"
+					+";";
+			System.out.println("Debug (updatePergunta) SQL>> " +sql);
+			
+			//Executa o update
+			st.executeUpdate(sql);
+			conexao.close();
+			System.out.println("Alterações salvas!");
+			return true;
+		} catch (Exception e) {
+			System.out.println("Erro (updatePergunta)" + e);
+		}
+		return false;
+	}
+
+	public static boolean deletarPergunta(String id_) {
+		// TODO Auto-generated method stub
+		try {
+			conexao = Conexao.getConnection();
+			Statement st = conexao.createStatement();
+			st.executeUpdate("DELETE FROM pergunta WHERE id_pergunta ='"+ id_ +"';");
+
+			return true;
+		} catch (SQLException sqlex) {
+			System.out.println("Erro (buscaTabela(): " + sqlex);
+		}
+		return false;
+	}
+
+	
+	public static void main(String[] args) {
+
+	}
+
+
 
 }

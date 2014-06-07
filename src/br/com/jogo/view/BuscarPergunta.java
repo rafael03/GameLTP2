@@ -2,6 +2,8 @@ package br.com.jogo.view;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -32,11 +34,10 @@ public class BuscarPergunta extends JFrame {
 	public JTextField fieldBuscar;
 	public JLabel lbBuscar;
 	public JTable tab;
-	Vector cabecalho = new Vector(); // declara cabecalho como um objeto
-	// do tipo vetor
-	Vector linhas = new Vector(); // · armazena todas as linhas que vão
+	boolean pesquisarPorId;
+	Vector cabecalho = new Vector();
+	Vector linhas = new Vector();
 
-	// compor a tabela
 
 	public BuscarPergunta() throws SQLException {
 		lbBuscar = new JLabel("Digite o ID da questão: ");
@@ -48,28 +49,28 @@ public class BuscarPergunta extends JFrame {
 		panButtons.add(fieldBuscar);
 		panButtons.add(btBuscar);
 
-		// Inicio do codigo para montar a tabela
-		ResultSet valoresDoBanco = Perguntas.buscaTabela();
-		ResultSetMetaData tabelaDoBanco = valoresDoBanco.getMetaData();
+		montaTabelaDeAcordoComABusca(pesquisarPorId);
+		btBuscar.addActionListener(new ActionListener() {
 
-		for (int i = 1; i <= tabelaDoBanco.getColumnCount(); ++i)
-			cabecalho.addElement(tabelaDoBanco.getColumnName(i));
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				pesquisarPorId = true;
+				try {
+					montaTabelaDeAcordoComABusca(pesquisarPorId);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					System.out.println(e);
+					e.printStackTrace();
+				}
+			}
+		});
 
-		do {
-			linhas.addElement(proximaLinha(valoresDoBanco, tabelaDoBanco));
-		} while (valoresDoBanco.next());
-		// Mostra a tabela com cabeçalhos e registros
+
 		tab = new JTable(linhas, cabecalho);
-		JScrollPane scroller = new JScrollPane(tab);
-		getContentPane().add(scroller, BorderLayout.CENTER);
-		validate();
-
 		// Adiciona a Tabela no layout
 		JPanel panTable = new JPanel(new GridLayout(1, 1));
 		panTable.add(tab);
-
 		// Chama Metodo responsavel pelo efeito ao clicar em uma <TR> (Linha)
-		efeitoAoClicarNaLinha();
 
 		// Configurações do Layout
 		this.setLayout(new BorderLayout());
@@ -82,6 +83,39 @@ public class BuscarPergunta extends JFrame {
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 
+		efeitoAoClicarNaLinha();
+	}
+
+	//Monta tabela de acordo com a busca
+	private void montaTabelaDeAcordoComABusca(boolean pesquisarPorId) throws SQLException {
+		if (pesquisarPorId) {
+			ResultSet valoresDoBanco = null;
+			String strIdParaBusca = fieldBuscar.getText();
+			valoresDoBanco = Perguntas.buscaPorId(strIdParaBusca);
+			montaTabela(valoresDoBanco);
+		} else {
+			ResultSet valoresDoBanco = Perguntas.buscaTabela();
+			montaTabela(valoresDoBanco);
+		}
+	}
+	// Monta a Tabela
+	private void montaTabela(ResultSet valoresDoBanco) throws SQLException {
+		cabecalho.clear();
+		linhas.clear();
+		ResultSetMetaData tabelaDoBanco = valoresDoBanco.getMetaData();
+
+		for (int i = 1; i <= tabelaDoBanco.getColumnCount(); ++i)
+			cabecalho.addElement(tabelaDoBanco.getColumnName(i));
+		
+		do {
+			linhas.addElement(proximaLinha(valoresDoBanco, tabelaDoBanco));
+		} while (valoresDoBanco.next());
+		// Mostra a tabela com cabeçalhos e registros
+
+		JScrollPane scroller = new JScrollPane(tab);
+		getContentPane().add(scroller, BorderLayout.CENTER);
+		validate();
+
 	}
 
 	// Metodo responsavel pelo clique na linha da tabela
@@ -90,14 +124,21 @@ public class BuscarPergunta extends JFrame {
 		tab.getSelectionModel().addListSelectionListener(
 				new ListSelectionListener() {
 					public void valueChanged(ListSelectionEvent event) {
-						String id_ = tab.getValueAt(tab.getSelectedRow(),0).toString();
-						String pergunta_ = tab.getValueAt(tab.getSelectedRow(),1).toString();
-						String respostaCerta_ = tab.getValueAt(tab.getSelectedRow(),2).toString();
-						String opcao1_ = tab.getValueAt(tab.getSelectedRow(),3).toString();
-						String opcao2_ = tab.getValueAt(tab.getSelectedRow(),4).toString();
-						String opcao3_ = tab.getValueAt(tab.getSelectedRow(),5).toString();
-						
-						updateOrDeletePergunta(id_, pergunta_, respostaCerta_, opcao1_, opcao2_, opcao3_);
+						String id_ = tab.getValueAt(tab.getSelectedRow(), 0)
+								.toString();
+						String pergunta_ = tab.getValueAt(tab.getSelectedRow(),
+								1).toString();
+						String respostaCerta_ = tab.getValueAt(
+								tab.getSelectedRow(), 2).toString();
+						String opcao1_ = tab
+								.getValueAt(tab.getSelectedRow(), 3).toString();
+						String opcao2_ = tab
+								.getValueAt(tab.getSelectedRow(), 4).toString();
+						String opcao3_ = tab
+								.getValueAt(tab.getSelectedRow(), 5).toString();
+
+						updateOrDeletePergunta(id_, pergunta_, respostaCerta_,
+								opcao1_, opcao2_, opcao3_);
 						System.out
 								.println("Linha Selecionada (efeitoAoClicarNaLinha)>>"
 										+ tab.getValueAt(tab.getSelectedRow(),
@@ -132,19 +173,28 @@ public class BuscarPergunta extends JFrame {
 
 	}
 
-	private void updateOrDeletePergunta(String id_, String pergunta_, String respostaCerta_, String opcao1_, String opcao2_, String opcao3_) {
+	private void updateOrDeletePergunta(String id_, String pergunta_,
+			String respostaCerta_, String opcao1_, String opcao2_,
+			String opcao3_) {
 		// TODO Auto-generated method stub
 		Object[] options = { "Editar", "Deletar" };
-		int n = JOptionPane.showOptionDialog(null, "Escolha a opção desejada:", "Gerenciador de Perguntas",
-				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.DEFAULT_OPTION,
-				null, options, options[1]);
+		int n = JOptionPane.showOptionDialog(null, "Escolha a opção desejada:",
+				"Gerenciador de Perguntas", JOptionPane.YES_NO_CANCEL_OPTION,
+				JOptionPane.DEFAULT_OPTION, null, options, options[1]);
 		JFrame metric = new JFrame("Editar");
 		JFrame imperial = new JFrame("Deletar");
 		if (n == 0) {
-//			metric.setVisible(true);
-			EdicaoDePerguntas.main(id_, pergunta_, respostaCerta_, opcao1_, opcao2_, opcao3_);
+			// metric.setVisible(true);
+			EdicaoDePerguntas.main(id_, pergunta_, respostaCerta_, opcao1_,
+					opcao2_, opcao3_);
 		} else if (n == 1) {
-//			imperial.setVisible(true);
+			Perguntas.deletarPergunta(id_);
+			try {
+				main(null);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} else {
 			System.out.println("no option choosen");
 		}

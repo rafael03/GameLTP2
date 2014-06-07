@@ -140,6 +140,7 @@ public class Jogar extends JFrame {
 
 				if (perguntasRestantes.size() > 0 && qtdVidas > 0) {
 					main(perguntasRestantes, qtdVidas);
+					dispose();
 				} else {
 					new TelaInicial();
 				}
