@@ -24,24 +24,24 @@ public class Jogar extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Integer> perguntasRestantes;
 	private JButton btResponder;
-	private JLabel lbId, lbTextoPergunta, lbRespostaCorreta, lbOpcao1,
-			lbOpcao2, lbOpcao3, lbVidas;
+	private JLabel lbId, lbTextoPergunta, lbRespostaCorreta, lbOpcao1, lbOpcao2, lbOpcao3, lbVidas;
 	private ArrayList<JRadioButton> respostas = new ArrayList<JRadioButton>();
 	private int qtdVidas;
+	private int pontos; 
 
-	public void main(ArrayList<Integer> idPerguntas, int qtdVidas) {
+	public void main(ArrayList<Integer> idPerguntas, int qtdVidas, int pontos) {
 		JFrame.setDefaultLookAndFeelDecorated(true);
-		new Jogar(idPerguntas, qtdVidas);
+		new Jogar(idPerguntas, qtdVidas, pontos);
 	}
 
-	public Jogar(ArrayList<Integer> idPerguntas, int qtdVidas) {
+	public Jogar(ArrayList<Integer> idPerguntas, int qtdVidas, int pontos) {
 
 		this.qtdVidas = qtdVidas;
+		this.pontos = pontos;
 
 		perguntasRestantes = idPerguntas;
 
-		Map<String, String> pergunta = Perguntas.getPergunta(perguntasRestantes
-				.get(0));
+		Map<String, String> pergunta = Perguntas.getPergunta(perguntasRestantes.get(0));
 
 		lbVidas = new JLabel();
 		lbId = new JLabel();
@@ -121,17 +121,17 @@ public class Jogar extends JFrame {
 				boolean acheiUmaCerta = false;
 
 				for (JRadioButton option : respostas) {
-					if (option.isSelected()
-							&& option.getText().equalsIgnoreCase(respostaCerta)) {
+					if (option.isSelected() && option.getText().equalsIgnoreCase(respostaCerta)) {
 						acheiUmaCerta = true;
-						System.out.println("Parebéns! Resposta correta!");
 						break;
 					}
 				}
 				if (!acheiUmaCerta) {
-					System.out
-							.println("Seu burro! Resposta errada! Animal!!!!!!");
+					System.out.println("Seu burro! Resposta errada! Animal!!!!!!");
 					qtdVidas--;
+				}else{
+					System.out.println("Parabéns! Resposta correta!");
+					pontos += 10;
 				}
 
 				
@@ -139,11 +139,11 @@ public class Jogar extends JFrame {
 				perguntasRestantes.remove(0);
 
 				if (perguntasRestantes.size() > 0 && qtdVidas > 0) {
-					main(perguntasRestantes, qtdVidas);
-					dispose();
+					main(perguntasRestantes, qtdVidas, pontos);
 				} else {
-					new TelaInicial();
+					new TelaSalvarPontos(pontos);
 				}
+				dispose();
 
 			}
 		});

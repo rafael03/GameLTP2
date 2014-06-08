@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import br.com.jogo.controller.Embaralhador;
@@ -69,7 +68,7 @@ public class TelaInicial extends JFrame {
 				ArrayList<Integer> indicePerguntas = Embaralhador.embaralhaListaDePerguntas();
 				
 				//Passa lista com indice das perguntas já embaralhadas
-				new Jogar(indicePerguntas, 3);
+				new Jogar(indicePerguntas, 3, 0);
 				dispose();
 				//jogar.main(lista_de_pergntas, 3);
 			}
@@ -80,8 +79,7 @@ public class TelaInicial extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				JOptionPane.showMessageDialog(null, "Ranking", "Janela", JOptionPane.INFORMATION_MESSAGE);
+				new Ranking();
 			}
 		});
 

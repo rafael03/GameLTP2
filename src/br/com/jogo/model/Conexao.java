@@ -9,7 +9,7 @@ public class Conexao {
 	//Configurar o banco
 	protected static final String URL = "jdbc:mysql://localhost:3306/gameLTPII";
 	private static final String userNameDb = "root";
-	private static final String userPasswDb = "";
+	private static final String userPasswDb = "123";
 
 	public static void main(String[] args) {
 		

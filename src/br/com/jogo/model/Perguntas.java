@@ -2,23 +2,18 @@ package br.com.jogo.model;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLClientInfoException;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
-import java.util.Vector;
 
 import com.mysql.jdbc.PreparedStatement;
 
 public class Perguntas extends Conexao {
 
-	public static void inserePerguntas(String textoPergunta,
-			String respostaCerta, String opcao1, String opcao2, String opcao3) {
+	public static void inserePerguntas(String textoPergunta, String respostaCerta, String opcao1, String opcao2, String opcao3) {
 		try {
 			// Abre conexão com o Banco
 			Connection con = getConnection();

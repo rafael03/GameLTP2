@@ -17,22 +17,34 @@ public class InitializeJdbc {
 	public static void createDataBase() {
 		try {
 			Connection con = Conexao.getConnection();
-			Statement st = (Statement) con.createStatement();
-
-			//monta a query de criacao de tabela
-			StringBuffer sqlCreate = new StringBuffer();	
-			sqlCreate.append(" create table if not exists pergunta ");
-			sqlCreate.append("( id_pergunta int(20) not null auto_increment, ");
-			sqlCreate.append("  texto_pergunta varchar(1000) not null,");
-			sqlCreate.append("  resposta_certa varchar(500) not null,");
-			sqlCreate.append("  resposta_errada1 varchar(500) not null,");
-			sqlCreate.append("  resposta_errada2 varchar(500) not null,");
-			sqlCreate.append("  resposta_errada3 varchar(500) not null,");
-			sqlCreate.append("  primary key (id_pergunta) ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ");
+			
+			Statement st1 = (Statement) con.createStatement();
+			StringBuffer sqlCreate1 = new StringBuffer();	
+			sqlCreate1.append(" create table if not exists pergunta ");
+			sqlCreate1.append("( id_pergunta int(20) not null auto_increment, ");
+			sqlCreate1.append("  texto_pergunta varchar(1000) not null,");
+			sqlCreate1.append("  resposta_certa varchar(500) not null,");
+			sqlCreate1.append("  resposta_errada1 varchar(500) not null,");
+			sqlCreate1.append("  resposta_errada2 varchar(500) not null,");
+			sqlCreate1.append("  resposta_errada3 varchar(500) not null,");
+			sqlCreate1.append("  primary key (id_pergunta) ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ");
 
 			// executa o comando da variavel sqlCreate
-			st.execute(sqlCreate.toString());
+			st1.execute(sqlCreate1.toString());
 
+			
+			Statement st2 = (Statement) con.createStatement();
+			StringBuffer sqlCreate2 = new StringBuffer();	
+			sqlCreate2.append(" create table if not exists ranking ");
+			sqlCreate2.append("( id_ranking int(20) not null auto_increment, ");
+			sqlCreate2.append("  nome varchar(100) not null,");
+			sqlCreate2.append("  pontos int not null,");
+			sqlCreate2.append("  primary key (id_ranking) ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ");
+			
+			// executa o comando da variavel sqlCreate
+			st2.execute(sqlCreate2.toString());
+			
+			
 			// Fecha a conexão com o Banco
 			con.close();
 			
